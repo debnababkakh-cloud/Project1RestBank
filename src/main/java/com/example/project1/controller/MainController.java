@@ -1,12 +1,15 @@
 package com.example.project1.controller;
 
 import com.example.project1.entities.Transfer;
+import com.example.project1.entities.TransferDTO;
 import com.example.project1.entities.User;
 import com.example.project1.entities.UserDTO;
 import com.example.project1.repositories.UserRepository;
 import com.example.project1.services.TransferService;
 import com.example.project1.services.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +40,12 @@ public class MainController {
         User user = userService.getCurrentUser();
         userService.transferMoney(user.getId(), idTo, amount);
         return new UserDTO(userService.findUserById(user.getId()));
+    }
+
+    @GetMapping("/gettrans")
+    public List<TransferDTO> getTransfers() {
+        User user = userService.getCurrentUser();
+        return userService.getAllTransfersDTO(user.getUsername());
     }
 
     @GetMapping("/test")
