@@ -35,14 +35,14 @@ public class MainController {
         return userService.login(userName, password);
     }
 
-    @PostMapping("/hello")
+    @PostMapping("/transfer")
     public UserDTO hello(@RequestParam Long idTo, @RequestParam int amount) {
         User user = userService.getCurrentUser();
         userService.transferMoney(user.getId(), idTo, amount);
         return new UserDTO(userService.findUserById(user.getId()));
     }
 
-    @GetMapping("/gettrans")
+    @GetMapping("/gettransfers")
     public List<TransferDTO> getTransfers() {
         User user = userService.getCurrentUser();
         return userService.getAllTransfersDTO(user.getUsername());
